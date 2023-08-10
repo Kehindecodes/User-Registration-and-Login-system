@@ -5,7 +5,14 @@ require_once '../../config/database.php';
 
 class User
 {
-    public \PDO $pdo;
+    private $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+
 
     /**
      * Creates a new user in the database.
@@ -18,10 +25,14 @@ class User
      */
     public function createUser(string $username, string $email, string $password)
     {
+
+
+
         $statement =  $this->pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
         $statement->bindValue(':username', $username);
         $statement->bindValue(':email', $email);
         $statement->bindValue(':password', $password);
+        // execute the query
         $statement->execute();
     }
 
@@ -38,7 +49,7 @@ class User
         $statement = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
         $statement->bindValue(':username', $username);
         $statement->execute();
-        return $statement->fetch();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
 
