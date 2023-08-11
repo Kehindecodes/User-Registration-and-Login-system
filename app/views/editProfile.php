@@ -1,41 +1,52 @@
 <?php
-require_once  '../../middleware/AuthMiddleware.php';
+require_once '../../middleware/AuthMiddleware.php';
 require_once '../models/UserModel.php';
-
 
 session_start();
 
-// check if user is authenticated
+// Check if user is authenticated
 AuthMiddleware::requireAuth();
 
-
-//  get authenticated user
+// Get authenticated user
 $username = $_SESSION['username'];
 $userModel = new User($pdo);
 $user = $userModel->getUser($username);
-echo '<pre>';
-var_dump($_POST);
-echo '</pre>';
 
-// $user = $userModel->getUser($username);
-if (!empty($_POST)) {
+$errors = [];
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $bio = $_POST['bio'];
-    // echo '<pre>';
-    // var_dump($_POST);
-    // echo '</pre>';
 
-    echo 'Username: ' . $username . '<br>';
-    echo 'Email: ' . $email . '<br>';
-    echo 'Password: ' . $password . '<br>';
-    echo 'Bio: ' . $bio . '<br>';
 
-    $updatedUser = $userModel->updateUser($username, $email, $password, $bio);
-    // redirect to profile page
-    header('Location: profile.php');
+    if (empty($errors)) {
+        // Handle image upload
+        $image = $_FILES['profile-image'] ?? null;
+        echo '<pre>';
+        var_dump($image);
+        echo '</pre>';
+
+        $imagePath = '';
+
+        if ($image && $image['tmp_name']) {
+            $imagePath = 'uploads/' . $image['name'];
+            mkdir(dirname($imagePath));
+            move_uploaded_file($image['tmp_name'], $imagePath);
+        }
+        $profileImage = $imagePath;
+
+        // Update user profile
+        $updatedUser = $userModel->updateUser($username, $email, $password, $bio, $profileImage);
+
+        // Redirect to profile page
+        header('Location: profile.php');
+        exit();
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,10 +67,10 @@ if (!empty($_POST)) {
                 <div class="card edit-profile-card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Edit Profile</h4>
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="edit-profile-image">Profile Image</label>
-                                <input type="file" class="form-control-file" name="profile-image" id="profile-image">
+                                <!-- <label for="edit-profile-image">Profile Image</label> -->
+                                <input type="file" class="form-control-file profile-image" name="profile-image" id="profile-image">
                             </div>
                             <div class="edit-form-group">
                                 <label for="username">Username</label>

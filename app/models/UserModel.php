@@ -63,14 +63,15 @@ class User
      * @throws Some_Exception_Class Description of exception (if any).
      * @return void
      */
-    public function updateUser(string $username, string $email, string $password, string $bio)
+    public function updateUser(string $username, string $email, string $password, string $bio, string $image)
     {
         // update user with that username in the database
-        $statement = $this->pdo->prepare("UPDATE users SET email = :email, password = :password, bio = :bio WHERE username = :username");
+        $statement = $this->pdo->prepare("UPDATE users SET email = :email, password = :password, bio = :bio, profile_image = :image WHERE username = :username");
         $statement->bindValue(':username', $username);
         $statement->bindValue(':email', $email);
         $statement->bindValue(':password', $password);
         $statement->bindValue(':bio', $bio);
+        $statement->bindValue(':image', $image);
         $statement->execute();
     }
 }

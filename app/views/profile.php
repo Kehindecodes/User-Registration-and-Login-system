@@ -48,7 +48,7 @@ if (!$user) {
             <div class="col-md-6">
                 <div class="card profile-card">
                     <div class="card-body">
-                        <img src="profile-image.jpg" alt="Profile Image" class="profile-image">
+                        <img src="<?php echo $user['profile_image']; ?>" alt="Profile Image" class="profile-image">
                         <h4 class="profile-name"><?php echo $user['username']; ?>
                             <a href="editProfile.php" class="text-secondary"><i class="fas fa-edit"></i></a>
                         </h4>
