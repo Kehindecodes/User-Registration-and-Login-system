@@ -11,11 +11,24 @@ class AuthController
 {
     private $userModel;
 
+    /**
+     * Initializes a new instance of the class.
+     *
+     * @param PDO $pdo The PDO object.
+     */
     public function __construct(PDO $pdo)
     {
         $this->userModel = new User($pdo);
     }
 
+    /**
+     * Logs in a user with the provided username and password.
+     *
+     * @param string $username The username of the user.
+     * @param string $password The password of the user.
+     * @throws Exception if the username or password is empty, or if the username is not found, or if the password is incorrect.
+     * @return void
+     */
     public function loginUser($username, $password)
     {
         $userModel = $this->userModel;
@@ -42,6 +55,11 @@ class AuthController
         }
     }
 
+    /**
+     * Logs out the user by destroying the session, displaying a logout message, and redirecting to the login page.
+     *
+     * @throws Some_Exception_Class description of exception
+     */
     public function logout()
     {
         session_unset();
