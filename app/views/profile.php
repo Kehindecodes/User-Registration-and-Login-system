@@ -60,7 +60,7 @@ if (!$user) {
                             <p><strong> Email:</strong> <?php echo $user['email']; ?></p>
                             <p><strong>Password:</strong> *********</p>
                         </div>
-                        <button class="btn btn-danger float-end" id="logoutBtn">Logout</button>
+                        <a class="btn btn-danger float-end" id="logoutBtn" href="logout.php">Logout</a>
                     </div>
                 </div>
             </div>
