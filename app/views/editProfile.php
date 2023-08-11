@@ -35,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imagePath = 'uploads/' . $image['name'];
             mkdir(dirname($imagePath));
             move_uploaded_file($image['tmp_name'], $imagePath);
+        } elseif (isset($user['profile_image'])) {  // if user already has an image then set it to the profile image
+            $imagePath = $user['profile_image'];
         }
+
         $profileImage = $imagePath;
 
         // Update user profile
@@ -70,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <!-- <label for="edit-profile-image">Profile Image</label> -->
-                                <input type="file" class="form-control-file profile-image" name="profile-image" id="profile-image">
+                                <input type="file" class="form-control-file profile-image" name="profile-image" value="<?php echo $user['profile_image']; ?>" id="profile-image">
                             </div>
                             <div class="edit-form-group">
                                 <label for="username">Username</label>
@@ -78,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="edit-form-group">
                                 <label for="bio">Bio</label>
-                                <textarea class="form-control" id="bio" rows="3" name="bio" value="<?php echo $user['bio']; ?>"></textarea>
+                                <textarea class="form-control" id="bio" rows="3" name="bio"><?php echo $user['bio']; ?></textarea>
                             </div>
                             <div class="edit-form-group">
                                 <label for="email">Email</label>
