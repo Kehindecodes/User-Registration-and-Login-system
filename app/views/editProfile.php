@@ -1,3 +1,43 @@
+<?php
+require_once  '../../middleware/AuthMiddleware.php';
+require_once '../models/UserModel.php';
+
+
+session_start();
+
+// check if user is authenticated
+AuthMiddleware::requireAuth();
+
+
+//  get authenticated user
+$username = $_SESSION['username'];
+$userModel = new User($pdo);
+$user = $userModel->getUser($username);
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+
+// $user = $userModel->getUser($username);
+if (!empty($_POST)) {
+    $name = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $bio = $_POST['bio'];
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
+
+    echo 'Username: ' . $username . '<br>';
+    echo 'Email: ' . $email . '<br>';
+    echo 'Password: ' . $password . '<br>';
+    echo 'Bio: ' . $bio . '<br>';
+
+    $updatedUser = $userModel->updateUser($username, $email, $password, $bio);
+    // redirect to profile page
+    header('Location: profile.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,60 +47,35 @@
     <title>Edit Profile</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .profile-card {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            text-align: center;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 
-<body>
+<body class="edit-body">
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card profile-card">
+                <div class="card edit-profile-card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Edit Profile</h4>
-                        <form>
+                        <form action="" method="POST">
                             <div class="form-group">
-                                <label for="profile-image">Profile Image</label>
-                                <input type="file" class="form-control-file" id="profile-image">
+                                <label for="edit-profile-image">Profile Image</label>
+                                <input type="file" class="form-control-file" name="profile-image" id="profile-image">
                             </div>
-                            <div class="form-group">
+                            <div class="edit-form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" value="John Doe">
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo $user['username']; ?>">
                             </div>
-                            <div class="form-group">
+                            <div class="edit-form-group">
                                 <label for="bio">Bio</label>
-                                <textarea class="form-control" id="bio" rows="3">Passionate about coding, design, and coffee!</textarea>
+                                <textarea class="form-control" id="bio" rows="3" name="bio" value="<?php echo $user['bio']; ?>"></textarea>
                             </div>
-                            <div class="form-group">
+                            <div class="edit-form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" value="john@example.com">
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $user['email']; ?>">
                             </div>
-                            <div class="form-group">
+                            <div class="edit-form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" value="*********">
+                                <input type="password" class="form-control" id="password" name="password" value="<?php echo $user['password']; ?>">
                             </div>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>

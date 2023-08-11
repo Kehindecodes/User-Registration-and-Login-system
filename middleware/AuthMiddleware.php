@@ -12,7 +12,7 @@ class AuthMiddleware
     {
         if (!isset($_SESSION['user_id'])) {
             // if not logged in redirect to login page
-            header('Location: /login');
+            header('Location: login.php');
             exit;
         }
     }

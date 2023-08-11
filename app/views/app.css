@@ -33,3 +33,27 @@ body {
     font-size: 18px;
     margin-top: 20px;
 }
+
+.edit-body {
+    background-color: #f8f9fa;
+}
+
+.edit-profile-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.edit-profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.edit-form-group {
+    margin-bottom: 20px;
+}

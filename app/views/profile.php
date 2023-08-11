@@ -36,6 +36,7 @@ if (!$user) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <!-- Include Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- link css -->
     <link rel="stylesheet" href="./app.css">
@@ -48,13 +49,18 @@ if (!$user) {
                 <div class="card profile-card">
                     <div class="card-body">
                         <img src="profile-image.jpg" alt="Profile Image" class="profile-image">
-                        <h4 class="profile-name"><?php echo $user['username']; ?></h4>
-                        <p class="bio"><?php echo $user['bio']; ?></p>
+                        <h4 class="profile-name"><?php echo $user['username']; ?>
+                            <a href="editProfile.php" class="text-secondary"><i class="fas fa-edit"></i></a>
+                        </h4>
+                        <p class="bio"><?php echo $user['bio']; ?>
+
+                        </p>
                         <hr>
                         <div class="contact-info">
                             <p><strong> Email:</strong> <?php echo $user['email']; ?></p>
                             <p><strong>Password:</strong> *********</p>
                         </div>
+                        <button class="btn btn-danger float-end" id="logoutBtn">Logout</button>
                     </div>
                 </div>
             </div>
