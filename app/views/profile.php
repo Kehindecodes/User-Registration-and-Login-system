@@ -1,3 +1,30 @@
+<?php
+require_once '../../middleware/AuthMiddleware.php';
+require_once '../models/UserModel.php';
+
+session_start();
+
+// check if user is authenticated
+AuthMiddleware::requireAuth();
+
+
+//  get authenticated user
+$username = $_SESSION['username'];
+$userModel = new User($pdo);
+$user = $userModel->getUser($username);
+
+if (!$user) {
+    header('Location: login.php');
+}
+
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,11 +48,11 @@
                 <div class="card profile-card">
                     <div class="card-body">
                         <img src="profile-image.jpg" alt="Profile Image" class="profile-image">
-                        <h4 class="profile-name">John Doe</h4>
-                        <p class="bio">Passionate about coding, design, and coffee!</p>
+                        <h4 class="profile-name"><?php echo $user['username']; ?></h4>
+                        <p class="bio"><?php echo $user['bio']; ?></p>
                         <hr>
                         <div class="contact-info">
-                            <p><strong>Email:</strong> john@example.com</p>
+                            <p><strong> Email:</strong> <?php echo $user['email']; ?></p>
                             <p><strong>Password:</strong> *********</p>
                         </div>
                     </div>

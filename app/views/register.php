@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -44,15 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form action="" method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required value="<?php echo $username; ?>">
+                                <input type="text" class="form-control" id="username" name="username" required value="<?php if (isset($username)) echo $username; ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email" required value="<?php echo $email; ?>">
+                                <input type="email" class="form-control" id="email" name="email" required value="<?php if (isset($email)) echo $email; ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required value="<?php echo $password; ?>">
+                                <input type="password" class="form-control" id="password" name="password" required value="<?php if (isset($password)) echo $password; ?>">
                             </div>
                             <div class=" text-center">
                                 <button type="submit" class="btn btn-primary btn-block w-100">Register</button>

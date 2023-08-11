@@ -72,5 +72,6 @@ class UserController
         $userModel->createUser($username, $email, $hashedPassword);
 
         echo 'User created' . '<br>';
+        header('Location: /login');
     }
 }

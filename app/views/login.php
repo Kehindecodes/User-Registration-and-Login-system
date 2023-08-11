@@ -1,3 +1,28 @@
+<?php
+require_once '../controllers/AuthController.php';
+require_once '../../config/database.php';
+
+
+$authController = new AuthController($pdo);
+
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+
+    try {
+        $authController->loginUser($username, $password);
+    } catch (\Throwable $th) {
+        //throw $th;
+        echo $th->getMessage();
+    }
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,10 +41,10 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h4 class="card-title text-center mb-4">Log In</h4>
-                        <form>
+                        <form action="" method="POST">
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="email" name="username" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
