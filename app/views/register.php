@@ -1,10 +1,11 @@
 <?php
-require_once '../controllers/UserController.php';
-require_once '../../config/database.php';
+require_once __DIR__ . '/../controllers/UserController.php';
+require_once __DIR__ . '/../../config/database.php';
 
 
 // Create an instance of UserController with the $pdo instance
 $userController = new UserController($pdo);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the required keys exist in the $_POST array
     if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <button type="submit" class="btn btn-primary btn-block w-100">Register</button>
                             </div>
 
-                            <p class="text-center mt-3">Already have an account? <a href="login.php">Log in</a></p>
+                            <p class="text-center mt-3">Already have an account? <a href="/php%20projects/authentication-system/">Log in</a></p>
                         </form>
                     </div>
                 </div>

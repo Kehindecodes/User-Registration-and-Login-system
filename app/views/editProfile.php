@@ -1,6 +1,6 @@
 <?php
-require_once '../../middleware/AuthMiddleware.php';
-require_once '../models/UserModel.php';
+require_once __DIR__ . '/../../middleware/AuthMiddleware.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 session_start();
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $updatedUser = $userModel->updateUser($username, $email, $password, $bio, $profileImage);
 
         // Redirect to profile page
-        header('Location: profile.php');
+        header('Location: /php%20projects/authentication-system/profile');
         exit();
     }
 }

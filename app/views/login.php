@@ -1,6 +1,6 @@
 <?php
-require_once '../controllers/AuthController.php';
-require_once '../../config/database.php';
+require_once __DIR__ . '/../controllers/AuthController.php';
+require_once __DIR__ . '/../../config/database.php';
 
 
 $authController = new AuthController($pdo);
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $authController->loginUser($username, $password);
     } catch (\Throwable $th) {
         //throw $th;
-        echo $th->getMessage();
+        $error = $th->getMessage();
     }
 }
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class=" text-center">
                                 <button type="submit" class="btn btn-primary btn-block w-100">Log In</button>
                             </div>
-                            <p class="text-center mt-3">Don't have an account? <a href="register.php">Sign up</a></p>
+                            <p class="text-center mt-3">Don't have an account? <a href="/php%20projects/authentication-system/register">Sign up</a></p>
                         </form>
                     </div>
                 </div>

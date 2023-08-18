@@ -1,9 +1,9 @@
 <?php
 
-require_once '../models/UserModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 // create a PDO connection
-require_once '../../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 
 
@@ -72,6 +72,6 @@ class UserController
         $userModel->createUser($username, $email, $hashedPassword);
 
         echo 'User created' . '<br>';
-        header('Location: login.php');
+        header('Location: /php%20projects/authentication-system/');
     }
 }

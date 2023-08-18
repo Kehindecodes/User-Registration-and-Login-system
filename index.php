@@ -1,49 +1,32 @@
 <?php
-// Include necessary files and create a PDO connection
-// require_once './config/database.php';
-// require_once './app/controllers/UserController.php';
-// require_once './app/controllers/AuthController.php';
 
-// // Create an instance of UserController with the $pdo instance
-// $userController = new UserController($pdo);
+// Define the routes and their corresponding views
+$routes = [
+    '/' => 'login.php',
+    '/login' => 'login.php',
+    '/register' => 'register.php',
+    '/profile' => 'profile.php',
+    '/editProfile' => 'editProfile.php',
+    '/logout' => 'logout.php',
+];
 
-// // create an instance of AuthController
-// $authController = new AuthController($pdo);
+// Get the requested URL
+$requestUri = $_SERVER['REQUEST_URI'];
+$baseUri = '/php%20projects/authentication-system'; // Base URL of your project
 
-// // Define the routing logic
-// $path = $_SERVER['REQUEST_URI'];
-// $method = $_SERVER['REQUEST_METHOD'];
+// Remove the base URI from the request to get the route
+$route = substr($requestUri, strlen($baseUri));
 
-// echo $path;
+// If the route is not in the defined routes,redirect to the 404 page
+if (!array_key_exists($route, $routes)) {
+    include __DIR__ . '/app/views/404page.php';
+}
 
-// if ($method === 'POST' && $path === './app/views/register.php') {
-//     // Check if the required keys exist in the $_POST array
-//     if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
-//         $username = $_POST['username'];
-//         $email = $_POST['email'];
-//         $password = $_POST['password'];
+// Include the corresponding view
+$view = $routes[$route];
+include __DIR__ . '/app/views/' . $view;
 
-//         try {
-//             // call the registerUser method to register the user
-//             $userController->registerUser($username, $email, $password);
-//         } catch (\Throwable $th) {
-//             echo $th->getMessage();
-//         }
-//     }
-// } elseif ($method === 'POST' && $path === '/login') {
-//     // Check if the required keys exist in the $_POST array
-//     if (isset($_POST['username']) && isset($_POST['password'])) {
-//         $email = $_POST['email'];
-//         $password = $_POST['password'];
-//     }
 
-//     try {
-//         $authController->loginUser($email, $password);
-//     } catch (\Throwable $th) {
-//         //throw $th;
-//         echo $th->getMessage();
-//     }
-// } else {
-//     // Handle other routes or show a 404 page
-//     echo "404 - Page not found";
-// }
+// // handle other routes or show a 404 page
+
+// include __DIR__ . '/app/views/404page.php';

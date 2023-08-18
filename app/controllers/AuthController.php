@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../config/database.php';
-require_once '../models/UserModel.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 
 
@@ -51,7 +51,7 @@ class AuthController
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             echo 'You are logged in';
-            header('Location: profile.php');
+            header('Location: /php%20projects/authentication-system/profile');
         }
     }
 
@@ -65,6 +65,6 @@ class AuthController
         session_unset();
         session_destroy();
         echo 'You are logged out';
-        header('Location: login.php');
+        header('Location: /php%20projects/authentication-system/');
     }
 }

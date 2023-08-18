@@ -1,6 +1,6 @@
 <?php
-require_once '../../middleware/AuthMiddleware.php';
-require_once '../models/UserModel.php';
+require_once __DIR__ .  '/../../middleware/AuthMiddleware.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 session_start();
 
@@ -50,7 +50,7 @@ if (!$user) {
                     <div class="card-body">
                         <img src="<?php echo $user['profile_image']; ?>" alt="Profile Image" class="profile-image">
                         <h4 class="profile-name"><?php echo $user['username']; ?>
-                            <a href="editProfile.php" class="text-secondary"><i class="fas fa-edit"></i></a>
+                            <a href="/php%20projects/authentication-system/editProfile" class="text-secondary"><i class="fas fa-edit"></i></a>
                         </h4>
                         <p class="bio"><?php echo $user['bio']; ?>
 
@@ -60,7 +60,7 @@ if (!$user) {
                             <p><strong> Email:</strong> <?php echo $user['email']; ?></p>
                             <p><strong>Password:</strong> *********</p>
                         </div>
-                        <a class="btn btn-danger float-end" id="logoutBtn" href="logout.php">Logout</a>
+                        <a class="btn btn-danger float-end" id="logoutBtn" href="/php%20projects/authentication-system/logout">Logout</a>
                     </div>
                 </div>
             </div>
